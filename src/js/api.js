@@ -7,16 +7,26 @@ axios.defaults.baseURL = `https://pixabay.com/api/?key=${API_KEY}`;
 export default class NewApiService {
   constructor() {
     this.searchValue = '';
+    this.page = 1;
   }
   async getAllImages() {
     console.log(this);
     const { data } = await axios(
-      `&q=${this.searchValue}&image_type=photo&orientation=horizontal&safesearch=true&page=1&per_page=40`
+      `&q=${this.searchValue}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=40`
     );
-    console.log(data);
+    // console.log(data);
+    this.incrementPage();
+    const hits = data.hits;
     return data;
   }
-  //щоб мати доступ у зовнішньому коді до this.searchValue
+
+  incrementPage() {
+    this.page += 1;
+  }
+
+  resetPage() {
+    this.page = 1;
+  }
   get query() {
     return this.searchValue;
   }
