@@ -17,7 +17,7 @@ export default class NewApiService {
     // console.log(data);
     this.incrementPage();
     const hits = data.hits;
-    return data;
+    return hits;
   }
 
   incrementPage() {

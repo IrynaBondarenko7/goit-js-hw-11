@@ -12,9 +12,11 @@ export async function onFormSubmit(event) {
     newApiService.query = event.currentTarget.elements.searchQuery.value;
     newApiService.resetPage();
     // const { hits } = await getAllImages(searchValue);
-    newApiService.getAllImages();
 
-    // renderMarkup(refs.gallery, createImagesMarkup(hits));
+    newApiService.getAllImages().then(hits => {
+      console.log(hits);
+      renderMarkup(refs.gallery, createImagesMarkup(hits));
+    });
   } catch (error) {
     console.log(error.messege);
   }
@@ -22,7 +24,10 @@ export async function onFormSubmit(event) {
 
 export async function onBtnLoadMoreClick(event) {
   try {
-    newApiService.getAllImages();
+    newApiService.getAllImages().then(hits => {
+      console.log(hits);
+      renderMarkup(refs.gallery, createImagesMarkup(hits));
+    });
     // const { hits } = await getAllImages(searchValue);
     // renderMarkup(refs.gallery, createImagesMarkup(hits));
   } catch (error) {
