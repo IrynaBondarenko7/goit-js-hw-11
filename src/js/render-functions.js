@@ -9,27 +9,35 @@ export function createImagesMarkup(images) {
         views,
         comments,
         downloads,
-      }) => `<div class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+      }) => `<a href="${largeImageURL}" class="photo-card">
+  <img src="${webformatURL}" alt="${tags}"  title="${tags}" loading="lazy" class="image"/>
   <div class="info">
     <p class="info-item">
-      <b>${likes}</b>
+      <b>Likes:</b>
+          <span>${likes}</span>
     </p>
     <p class="info-item">
-      <b>${views}</b>
+      <b>Views:</b>
+        <span>${views}</span>
     </p>
     <p class="info-item">
-      <b>${comments}</b>
+      <b>Comments:</b>
+       <span>${comments}</span>
     </p>
     <p class="info-item">
-      <b>${downloads}</b>
+      <b>Downloads:</b>
+       <span>${downloads}</span>
     </p>
   </div>
-</div>`
+</a>`
     )
     .join('');
 }
 
 export function renderMarkup(element, markup) {
   element.insertAdjacentHTML('beforeend', markup);
+}
+
+export function clearRenderMarkup(element) {
+  element.innerHTML = '';
 }

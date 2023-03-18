@@ -1,5 +1,4 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
-
 a {
   text-decoration: none;
   color: inherit;
@@ -35,9 +34,11 @@ img {
 .load-more {
   display: none;
 }
+
 .is-visible {
   display: block;
 }
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -45,23 +46,27 @@ img {
   margin: 0 auto;
   width: 100%;
 }
+
 .photo-card {
   display: flex;
   flex-direction: column;
   flex-basis: calc((100% - 20px) / 3);
 }
+
 .info {
   width: 100%;
   display: flex;
   justify-content: space-around;
 }
+
 .image {
   flex-grow: 1;
   display: flex;
 }
+
 .info-item {
   display: flex;
   flex-direction: column;
   row-gap: 2px;
   align-items: center;
-}
+}/*# sourceMappingURL=index.css.map */
