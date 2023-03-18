@@ -31,8 +31,25 @@ img {
   height: auto;
 }
 
+.search-form {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgb(103, 118, 230);
+}
+
+input {
+  height: 40px;
+  width: 320px;
+}
+
 .load-more {
   display: none;
+  margin: 0 auto;
+  padding: 5;
+  width: 150px;
+  margin-bottom: 50px;
+  border-radius: 20px;
 }
 
 .is-visible {
@@ -69,4 +86,10 @@ img {
   flex-direction: column;
   row-gap: 2px;
   align-items: center;
+}
+
+.icon-search {
+  fill: black;
+  width: 20px;
+  height: 20px;
 }/*# sourceMappingURL=index.css.map */

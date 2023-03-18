@@ -7,7 +7,7 @@ import {
 } from './render-functions';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
-SimpleLightbox;
+
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 let lightbox = new SimpleLightbox('.gallery a', {
@@ -40,10 +40,11 @@ export async function onFormSubmit(event) {
       }
       //Під час пошуку за новим ключовим словом  повністю очищаємо вміст галереї
       clearRenderMarkup(refs.gallery);
-
+      refs.form.reset();
       Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
 
       renderMarkup(refs.gallery, createImagesMarkup(hits));
+      lightbox.refresh();
     });
   } catch (error) {
     console.log(error.messege);
@@ -62,6 +63,7 @@ export async function onBtnLoadMoreClick(event) {
         refs.btnLoadMore.disabled = true;
       }
       renderMarkup(refs.gallery, createImagesMarkup(hits));
+      lightbox.refresh();
     });
   } catch (error) {
     console.log(error.messege);
