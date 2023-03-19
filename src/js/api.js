@@ -8,10 +8,11 @@ export default class NewApiService {
   constructor() {
     this.searchValue = '';
     this.page = 1;
+    this.perPage = 40;
   }
   async getAllImages() {
     const { data } = await axios(
-      `?key=${API_KEY}&q=${this.searchValue}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=100`
+      `?key=${API_KEY}&q=${this.searchValue}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.perPage}`
     );
 
     this.incrementPage();

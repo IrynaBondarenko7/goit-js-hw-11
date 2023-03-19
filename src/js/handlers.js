@@ -21,31 +21,30 @@ export async function onFormSubmit(event) {
   event.preventDefault();
 
   try {
-    refs.btnLoadMore.classList.add('is-visible');
     //зберігаємо значення пошуку
-    newApiService.query = event.currentTarget.elements.searchQuery.value;
+    newApiService.query = event.currentTarget.elements.searchQuery.value.trim();
     if (newApiService.query === '') {
       Notiflix.Notify.warning('Please enter a request!');
       return;
     }
     newApiService.resetPage();
 
-    newApiService.getAllImages().then(({ hits, totalHits }) => {
-      console.log(totalHits);
+    const { hits, totalHits } = await newApiService.getAllImages();
 
-      if (hits.length === 0) {
-        Notiflix.Notify.warning(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      }
-      //Під час пошуку за новим ключовим словом  повністю очищаємо вміст галереї
-      clearRenderMarkup(refs.gallery);
-      refs.form.reset();
-      Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    if (hits.length === 0) {
+      Notiflix.Notify.warning(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+      return;
+    }
+    //Під час пошуку за новим ключовим словом  повністю очищаємо вміст галереї
+    clearRenderMarkup(refs.gallery);
+    refs.form.reset();
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
 
-      renderMarkup(refs.gallery, createImagesMarkup(hits));
-      lightbox.refresh();
-    });
+    renderMarkup(refs.gallery, createImagesMarkup(hits));
+    lightbox.refresh();
+    refs.btnLoadMore.classList.add('is-visible');
   } catch (error) {
     console.log(error.messege);
   }
@@ -53,18 +52,18 @@ export async function onFormSubmit(event) {
 
 export async function onBtnLoadMoreClick(event) {
   try {
-    newApiService.getAllImages().then(({ hits, totalHits }) => {
-      const totalImages = hits.length * (newApiService.page - 1);
+    const { hits, totalHits } = await newApiService.getAllImages();
 
-      if (totalImages === totalHits) {
-        Notiflix.Notify.info(
-          "We're sorry, but you've reached the end of search results."
-        );
-        refs.btnLoadMore.disabled = true;
-      }
-      renderMarkup(refs.gallery, createImagesMarkup(hits));
-      lightbox.refresh();
-    });
+    const totalImages = hits.length * (newApiService.page - 1);
+    console.log(hits.length);
+    if (totalImages === totalHits || hits.length < newApiService.perPage) {
+      Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results."
+      );
+      refs.btnLoadMore.disabled = true;
+    }
+    renderMarkup(refs.gallery, createImagesMarkup(hits));
+    lightbox.refresh();
   } catch (error) {
     console.log(error.messege);
   }

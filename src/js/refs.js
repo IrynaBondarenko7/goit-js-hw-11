@@ -4,4 +4,3 @@ export const refs = {
   gallery: document.querySelector('.gallery'),
   btnLoadMore: document.querySelector('.load-more'),
 };
-// console.log(refs.form);
