@@ -14,7 +14,6 @@ let lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-refs.btnLoadMore.disabled = false;
 const newApiService = new NewApiService();
 
 export async function onFormSubmit(event) {
@@ -32,6 +31,8 @@ export async function onFormSubmit(event) {
     const { hits, totalHits } = await newApiService.getAllImages();
 
     if (hits.length === 0) {
+      clearRenderMarkup(refs.gallery);
+      refs.btnLoadMore.classList.remove('is-visible');
       Notiflix.Notify.warning(
         'Sorry, there are no images matching your search query. Please try again.'
       );
@@ -60,7 +61,7 @@ export async function onBtnLoadMoreClick(event) {
       Notiflix.Notify.info(
         "We're sorry, but you've reached the end of search results."
       );
-      refs.btnLoadMore.disabled = true;
+      refs.btnLoadMore.classList.remove('is-visible');
     }
     renderMarkup(refs.gallery, createImagesMarkup(hits));
     lightbox.refresh();
